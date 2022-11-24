@@ -1,7 +1,8 @@
 import ICampaign from "./interfaces/ICampaign";
 import ICampaignFactory from "./interfaces/ICampaignFactory";
-// import IAccessCard from "./interfaces/IAccessCard";
+import IAccessCard from "./interfaces/IAccessCard";
 import IFakeToken from "./interfaces/IFakeToken";
+import IIbToken from "./interfaces/IIbToken";
 import axios from "axios"
 
 
@@ -48,6 +49,19 @@ export const approveTargetFT = async (_target, _amount) => {
         console.error("SM : Error approving fake token :", e)
     }
 }
+
+// -------------------- Test Token -------------------- 
+
+export const balOfIbToken = async (IbAddress) => {
+    try {
+        const {addr} = await getMsgSender();
+        let bal = await (await IIbToken(IbAddress)).balanceOf(addr);
+        return (bal);
+    } catch (e) {
+        console.error("SM : Error retrieving IbToken balance:", e)
+    }
+}
+
 
 // -------------------- Access Card -------------------- 
 
