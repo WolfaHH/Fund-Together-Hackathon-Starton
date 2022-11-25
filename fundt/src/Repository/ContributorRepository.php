@@ -64,4 +64,3 @@ class ContributorRepository extends ServiceEntityRepository
 //        ;
 //    }
 }
-

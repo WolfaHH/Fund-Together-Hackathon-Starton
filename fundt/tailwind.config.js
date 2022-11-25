@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./assets/**/*.js", './node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'],
+  content: ["./assets/**/*.{jsx,js}",
+    "./node_modules/flowbite/**/*.js"
+  ],
   theme: {
     extend: {},
     minHeight: {

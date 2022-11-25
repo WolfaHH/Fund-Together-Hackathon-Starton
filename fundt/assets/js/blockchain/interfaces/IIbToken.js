@@ -1,4 +1,4 @@
-import IIbTokenABI from "../ABI/IIbTokenABI.json";
+import IIbTokenABI from "../ABI/IbTokenABI.json";
 import {ethers} from "ethers"
 import getProvider from "./getProvider";
 

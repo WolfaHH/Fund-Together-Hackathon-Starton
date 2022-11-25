@@ -3,44 +3,44 @@ import React from "react";
 const faqs = [
     {
         id: 1,
-        question: "What's the best thing about Switzerland?",
+        question: "Where my money goes ?",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "Once deposited, your assets are transferred to our automated investment strategies. Revenues are shared and returned in part to the campaign",
 
     },
     {
         id: 1,
-        question: "What's the best thing about Switzerland?",
+        question: "How can I be sure I will get my funds back?",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "You will receive an amount of interest-bearing Tokens equal to the amount of your initial deposit plus earnings. You can withdraw your initial deposit and rewards at any time.",
 
     },
     {
         id: 1,
-        question: "What's the best thing about Switzerland?",
+        question: "What type of automated strategies are applied",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "We limit any investment risk through yield farming and fee return strategies on stable currencies",
 
     },
     {
         id: 1,
-        question: "What's the best thing about Switzerland?",
+        question: "What types of campaigns are featured on Fund Together",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "Any project with a virtuous goal and validated by the community can be presented on the platform, whether it is educational, informative or many others..",
 
     },
     {
         id: 1,
-        question: "What's the best thing about Switzerland?",
+        question: "Where can I vote for new projects?",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "You can find the different campaigns being voted on our discord",
 
     },
     {
         id: 1,
-        question: "What's the best thing about Switzerland?",
+        question: "How are the funds collected by the fees used?",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "In life it’s really better to never expect anything at all.",
 
     },
 ]

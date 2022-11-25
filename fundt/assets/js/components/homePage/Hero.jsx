@@ -1,19 +1,13 @@
-import Image from 'next/image'
-
-import { Button } from '@/components/Button'
-import { Container } from '@/components/Container'
-import logoLaravel from '@/images/logos/laravel.svg'
-import logoMirage from '@/images/logos/mirage.svg'
-import logoStatamic from '@/images/logos/statamic.svg'
-import logoStaticKit from '@/images/logos/statickit.svg'
-import logoTransistor from '@/images/logos/transistor.svg'
-import logoTuple from '@/images/logos/tuple.svg'
+//import Image from 'next/image'
+import React from "react";
+import { Button } from './Button'
+import { Container } from './Container'
 
 export function Hero() {
   return (
-    <Container className="mb-36 pt-20 pb-10 text-center lg:pt-15">
+    <Container className="mb-36 pt-20 pb-10 text-center lg:pt-15 bg-state-50">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-        Alternative Funding {' '}
+        Alternative {' '}
         <span className="relative whitespace-nowrap text-blue-600">
           <svg
             aria-hidden="true"
@@ -25,17 +19,17 @@ export function Hero() {
           </svg>
           <span className="relative">Funding</span>
         </span>{' '}
-        For Educational And Societal Projects.
+        For Schools, Educational And Societal Projects.
       </h1>
       <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
         With time, everyone wins. Support the causes you care about by sharing the revenue from your stake. Withdraw your assets whenever you want !
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
         <Button
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          href="/explore"
         >Explore</Button>
         <Button
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          href="/dashboard"
           variant="outline"
         >
           <span className="">Dashboard</span>

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
-
-import { Button } from '@/components/Button'
-import { Container } from '@/components/Container'
+import React from "react";
+import { Button } from './Button'
+import { Container } from './Container'
 
 function SwirlyDoodle({ className }) {
   return (
@@ -81,7 +81,7 @@ function Plan({ name, price, description, href, features, featured = false }) {
         ))}
       </ul>
       <Button
-        href={href}
+        href="https://discord.gg/vtTnfjjZzB"
         variant={featured ? 'solid' : 'outline'}
         color="white"
         className="mt-8"

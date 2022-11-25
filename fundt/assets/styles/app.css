@@ -1,3 +1,130 @@
-body {
-    background-color: lightgray;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body
+{
+    background: #eff2f5;
+}
+.main
+{
+    z-index: 1;
+    margin-bottom: 3rem;
+}
+.connectwallet
+{
+    cursor:pointer;
+}
+
+.opapa
+{
+    opacity: 8%;
+    visibility: visible;
+}
+
+.modalee
+{
+    z-index: 99;
+    position: absolute;
+    top:14%;
+    left:14%;
+    right:14%;
+}
+.roupipi
+{
+    margin-left:-3rem;
+}
+
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.container42 {
+    display: flex;
+    width: 1040px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.card42 {
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 400px;
+}
+.card-header42 img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.card-body42 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    max-height: 400px;
+}
+
+.tag42 {
+    background: mediumpurple;
+    border-radius: 50px;
+    margin: 0;
+    color: #fff;
+    padding: 2px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.tag-teal42 {
+    background-color: #47bcd4;
+}
+.tag-purple42 {
+    background-color: #5e76bf;
+}
+.tag-pink42 {
+    background-color: #cd5b9f;
+}
+
+.card-body42 p {
+    margin: 0 0 40px;
+}
+.user42{
+    margin-top:-1rem;
+}
+
+.user42 img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+.user-info42 h5 {
+    margin: 0;
+}
+.user-info42 small {
+    color: #545d7a;
+}
+
+
+
+.gay
+{
+    position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(897px, 5637px, 0px);
+}
+
+
+.shapebleu
+{
+    background: url("/assets/images/shape.svg") no-repeat top;
+    background-size: 100%;
+    height: 13.8vw;
+    min-width: 100vw;
+}
+
+.shapebleurev {
+    background: url("/assets/images/shaperev.svg") no-repeat bottom;
+    background-size: 100%;
+    height: 13.8vw;
+    min-width: 100vw;
 }

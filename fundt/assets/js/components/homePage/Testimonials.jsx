@@ -1,11 +1,11 @@
-import Image from 'next/image'
-
-import { Container } from '@/components/Container'
-import avatarImage1 from '@/images/avatars/avatar-1.png'
-import avatarImage2 from '@/images/avatars/avatar-2.png'
-import avatarImage3 from '@/images/avatars/avatar-3.png'
-import avatarImage4 from '@/images/avatars/avatar-4.png'
-import avatarImage5 from '@/images/avatars/avatar-5.png'
+//import Image from 'next/image'
+import React from "react";
+import { Container } from './Container'
+import avatarImage1 from '../../images/avatars/avatar-1.png'
+import avatarImage2 from '../../images/avatars/avatar-2.png'
+import avatarImage3 from '../../images/avatars/avatar-3.png'
+import avatarImage4 from '../../images/avatars/avatar-4.png'
+import avatarImage5 from '../../images/avatars/avatar-5.png'
 
 const testimonials = [
   [
@@ -83,7 +83,7 @@ export function Testimonials() {
     <section
       id="testimonials"
       aria-label="What our customers are saying"
-      className="bg-slate-50 py-20 sm:py-32"
+      className="bg-state-50 py-20 sm:py-32"
     >
       <Container>
         <div className="mx-auto max-w-2xl md:text-center">
@@ -105,7 +105,7 @@ export function Testimonials() {
               <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
                 {column.map((testimonial, testimonialIndex) => (
                   <li key={testimonialIndex}>
-                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                    <figure className="relative rounded-2xl bg-state-50 p-6 shadow-xl shadow-slate-900/10">
                       <QuoteIcon className="absolute top-6 left-6 fill-slate-100" />
                       <blockquote className="relative">
                         <p className="text-lg tracking-tight text-slate-900">
@@ -121,8 +121,8 @@ export function Testimonials() {
                             {testimonial.author.role}
                           </div>
                         </div>
-                        <div className="overflow-hidden rounded-full bg-slate-50">
-                          <Image
+                        <div className="overflow-hidden rounded-full bg-state-50">
+                          <img
                             className="h-14 w-14 object-cover"
                             src={testimonial.author.image}
                             alt=""

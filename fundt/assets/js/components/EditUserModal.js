@@ -2,29 +2,27 @@ import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import React from "react";
-import {approveTargetFT, approveTargetIb, claim, contribute, getSummary} from "../blockchain/smc";
-import {utils} from "ethers";
-
-function Input({valuee, setValuee}) {
+import {SetUserName} from "./GetUserName";
+import {Slider} from "@mui/material";
+function Input({name, setName}) {
     return (
         <div>
             <label htmlFor="price" className="block text-sm font-medium text-gray-700 mt-3">
             </label>
             <div className="relative mt-1 rounded-md shadow-sm">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <span className="text-gray-500 sm:text-sm">$</span>
-                </div>
-                <input  value={valuee} onChange={(e) => setValuee(e.target.value)}
-                        type="text"
-                        name="price"
-                        id="price"
-                        className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="How much ?"
-                        aria-describedby="price-currency"
+
+                <input
+                    type="text" maxLength="20" minLength="3"
+                    name="name"
+                    id="name"
+                    className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder=""
+                    value={name} onChange={(e) => setName(e.target.value)}
+                    aria-describedby="price-currency"
                 />
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
           <span className="text-gray-500 sm:text-sm" id="price-currency">
-            USDT
+            (20 char max)
           </span>
                 </div>
             </div>
@@ -33,51 +31,21 @@ function Input({valuee, setValuee}) {
 }
 
 
-export default function UnStakeInput({open, setOpen, annonceAddress, setAnnonceAddress, userAddress, setUserAddress, loading, setLoading}) {
+export default function EditUserModal({open, setOpen, name, setName}) {
     //const [open, setOpen] = useState(true)
 
     const cancelButtonRef = useRef(null)
+    const [nameva, setNameva] = useState('');
 
-
-    const [valuee, setValuee] = useState(0);
-
-    async function removeDonation() {
-
-
-        return fetch("http://localhost/api/remove-donation", {
-            method: "POST",
-            body: JSON.stringify({
-                userAddress: userAddress,
-                annonceAddress: annonceAddress,
-                value:valuee,
-
-            }),
-        }).then(async (res) => {
-            return res.status === 200;
-        });
-    }
-
-    const submit = async (e) =>
+    const submit = async () =>
     {
 
-        setLoading(true);
-        const sum = await getSummary(annonceAddress);
-
-        const approve = await approveTargetIb(annonceAddress, utils.parseUnits(valuee.toString(), 18), sum.ibTokenAddress_).catch(console.error);
-        let res = await claim(annonceAddress, utils.parseUnits(valuee.toString(), 18) );
-        if (await res === undefined)
+        if (await SetUserName(nameva) === true)
         {
-
-        } else
-        {
-            await removeDonation();
+            setName(nameva);
         }
-        await console.log(res);
-        await window.location.reload();
-        console.log('retrait effecuté !')
-
+        setOpen(false)
     }
-
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -108,27 +76,22 @@ export default function UnStakeInput({open, setOpen, annonceAddress, setAnnonceA
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                                 <div>
                                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                                        <CurrencyDollarIcon className="h-14 w-14 text-red-600" aria-hidden="true" />
+                                        <CurrencyDollarIcon className="h-14 w-14 text-green-600" aria-hidden="true" />
                                     </div>
                                     <div className="text-center sm:mt-5">
                                         <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                                            Secured Transaction
+                                            Change your username
                                         </Dialog.Title>
-                                        <div className="mt-2">
-                                            <p className="text-sm text-gray-500">
-                                                You're about to exchange IBUSDT for USDT. Campaign's owner won't earn profit anymore on your staking. Are you sure you want to proceed to unstaking your IBUSDT tokens ?
-                                            </p>
-                                        </div>
-                                        <Input valuee={valuee} setValuee={setValuee} />
+                                        <Input name={nameva} setName={setNameva} />
                                     </div>
                                 </div>
                                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
-                                        onClick={async () => {setOpen(false); await submit();}}
+                                        onClick={submit}
                                     >
-                                        Approve
+                                        Update
                                     </button>
                                     <button
                                         type="button"

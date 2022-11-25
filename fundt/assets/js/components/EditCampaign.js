@@ -3,10 +3,8 @@ import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
 import {useState} from "react";
 import {connectWallet} from "../blockchain/connector";
-import {createNewCampaign, getAllDeployedCampaigns} from "../blockchain/smc";
-import {ethers} from 'ethers';
 
-const CreateCamp = ({isActive, setIsActive}) => {
+const EditCampaign = ({isActive, setIsActive, id}) => {
 
     const [title, setTitle] = useState("");
     const [tagline, setTagline] = useState("");
@@ -19,21 +17,14 @@ const CreateCamp = ({isActive, setIsActive}) => {
         setIsActive(current => !current);
     };
 
-    const sendTransaction = async() => {
-        const transaction = await createNewCampaign(1,'0xA9b64D80254BC665CdA3bc93C3566Fe56CfF9a38').catch(console.error);
-        // wait() has the logic to return receipt once the transaction is mined
-        const receipt = await transaction.wait();
-    }
     const submit = async (e) =>
     {
-        await sendTransaction();
-        let deployedCampaigns = await getAllDeployedCampaigns();
-        let lastaddress = await deployedCampaigns[deployedCampaigns.length - 1]
-
+        console.log("quand il trou il trouve")
         e.preventDefault();
         let res = await fetch("http://localhost/api/store-campaign", {
             method: "POST",
             body: JSON.stringify({
+                id: id,
                 title: title,
                 tagline: tagline,
                 description: description,
@@ -41,7 +32,6 @@ const CreateCamp = ({isActive, setIsActive}) => {
                 banner: banner,
                 goal: goal,
                 address: (await connectWallet()).address[0],
-                lastaddress: await lastaddress
 
             }),
         });
@@ -52,7 +42,8 @@ const CreateCamp = ({isActive, setIsActive}) => {
         setCategory('');
         setBanner('');
         setGoal('');
-        await changeModal();
+        changeModal();
+        await window.location.reload();
 
     }
 
@@ -60,11 +51,11 @@ const CreateCamp = ({isActive, setIsActive}) => {
         <div >
             <div className="p-6 max-w-6xl mx-auto bg-white rounded-xl shadow-md flex flex-col items-center space-x-4">
                 <div>
-                    <div className="m-5 text-4xl font-semibold text-black">Create a campaign</div>
+                    <div className="m-5 text-4xl font-semibold text-black">Edit your campaign</div>
                 </div>
                 <form className="w-9/12" onSubmit={submit}>
                     <div className="mb-6">
-                        <label htmlFor="title" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Your
+                        <label htmlFor="title" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Change your
                             Title</label>
                         <input type="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} minLength="4" maxLength="35"
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -72,15 +63,15 @@ const CreateCamp = ({isActive, setIsActive}) => {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="slogan"
-                               className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Your Tagline</label>
+                               className="block mb-2 text-base font-medium text-gray-900 dark:text-white">change your Tagline</label>
                         <input  value={tagline} onChange={(e) => setTagline(e.target.value)} type="tagline" id="tagline" placeholder="Choose a catchy tagline here ! (max 90 char)" minLength="4" maxLength="95"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required/>
                     </div>
                     <div className="flex flex-col items-start mb-6">
                         <label htmlFor="categ"
-                               className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Category</label>
-                        <select id="category" value={category} onChange={(e) => setCategory(e.target.value)}
+                               className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Change category</label>
+                        <select id="categ" value={category} onChange={(e) => setCategory(e.target.value)} required
                                 className="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option disabled selected value="0">Choose a category</option>
                             <option value="Volunteer work">Volunteer work</option>
@@ -90,13 +81,13 @@ const CreateCamp = ({isActive, setIsActive}) => {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="description"
-                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Change description</label>
                         <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows="8" type="text" id="description" placeholder="Write a longer description of your project here" minLength="4" maxLength="6000"
                                   className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                     </div>
                     <div className="mb-6 flex flex-col items-start justify-center w-full">
                         <label htmlFor="dropzone-file"
-                               className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Your banner (optionnal, we do not use it yet)</label>
+                               className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Change your banner (optionnal, we do not use it yet)</label>
                         <label htmlFor="dropzone-file"
                                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -114,14 +105,14 @@ const CreateCamp = ({isActive, setIsActive}) => {
                         </label>
                     </div>
                     <div className="mb-6">
-                        <label htmlFor="goal" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Your
+                        <label htmlFor="goal" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Change your
                             money goal</label>
                         <input type="number" id="goal" value={goal} onChange={(e) => setGoal(e.target.value)}  max="10000000" min="100"
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="Choose an amount as money goal in Dollars $$" required/>
                     </div>
                     <button type="submit"
-                            className="mb-6 mt-5 text-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create a campaign
+                            className="mb-6 mt-5 text-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit !!
                     </button>
                 </form>
             </div>
@@ -129,4 +120,4 @@ const CreateCamp = ({isActive, setIsActive}) => {
     );
 };
 
-export default CreateCamp;
+export default EditCampaign;

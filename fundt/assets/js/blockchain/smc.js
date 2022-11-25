@@ -4,6 +4,7 @@ import IAccessCard from "./interfaces/IAccessCard";
 import IFakeToken from "./interfaces/IFakeToken";
 import IIbToken from "./interfaces/IIbToken";
 import axios from "axios"
+import {utils} from "ethers";
 
 
 const getMsgSender = async () => {
@@ -24,7 +25,7 @@ export const getRandomNumber = async () => {
 export const mintFakeToken = async () => {
     try {
         const {addr} = await getMsgSender();
-        await (await IFakeToken()).mint(addr, 1);
+        await (await IFakeToken()).mint(addr, utils.parseUnits('10000', 18));
         return (true);
     } catch (e) {
         console.error("SM : Error minting fake token :", e)
@@ -43,12 +44,13 @@ export const balOfFakeToken = async () => {
 
 export const approveTargetFT = async (_target, _amount) => {
     try {
-        await (await IFakeToken()).approve(_target, _amount);
-        return (true);
+        let res = await (await IFakeToken()).approve(_target, _amount);
+        return await res.wait();
     } catch (e) {
         console.error("SM : Error approving fake token :", e)
     }
 }
+
 
 // -------------------- Test Token -------------------- 
 
@@ -59,6 +61,15 @@ export const balOfIbToken = async (IbAddress) => {
         return (bal);
     } catch (e) {
         console.error("SM : Error retrieving IbToken balance:", e)
+    }
+}
+
+export const approveTargetIb = async (_target, _amount, IbAddress) => {
+    try {
+        let res = await (await IIbToken(IbAddress)).approve(_target, _amount);
+        return await res.wait();
+    } catch (e) {
+        console.error("SM : Error approving fake token :", e)
     }
 }
 
@@ -103,7 +114,7 @@ export const getAllDeployedCampaigns = async () => {
 
 export const getSummary = async (_contractAddress) => {
     try {
-        await (await ICampaign(_contractAddress)).getSummary();
+        return await (await ICampaign(_contractAddress)).getSummary();
     } catch (e) {
         console.error("SM : Error while retrieving campaign details :", e)
     }
@@ -111,7 +122,8 @@ export const getSummary = async (_contractAddress) => {
 
 export const contribute = async (_contractAddress, _amount) => {
     try {
-        await (await ICampaign(_contractAddress)).contribute(_amount);
+        let res = await (await ICampaign(_contractAddress)).contribute(_amount);
+        return await res.wait();
     } catch (e) {
         console.error("SM : Error while contributing to campaign :", e)
     }
@@ -119,7 +131,7 @@ export const contribute = async (_contractAddress, _amount) => {
 
 export const claim = async (_contractAddress, _amount) => {
     try {
-        await (await ICampaign(_contractAddress)).claim(_amount);
+        return await (await ICampaign(_contractAddress)).claim(_amount);
     } catch (e) {
         console.error("SM : Error while withdrawing from campaign :", e)
     }

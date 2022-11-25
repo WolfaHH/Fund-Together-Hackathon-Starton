@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContributorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContributorRepository::class)]
@@ -29,6 +30,12 @@ class Contributor
 
     #[ORM\OneToMany(mappedBy: 'contributor', targetEntity: Donation::class)]
     private Collection $donations;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastroll = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $win = null;
 
     public function __construct()
     {
@@ -117,5 +124,28 @@ class Contributor
 
         return $this;
     }
-}
 
+    public function getLastroll(): ?\DateTimeInterface
+    {
+        return $this->lastroll;
+    }
+
+    public function setLastroll(?\DateTimeInterface $lastroll): self
+    {
+        $this->lastroll = $lastroll;
+
+        return $this;
+    }
+
+    public function getWin(): ?int
+    {
+        return $this->win;
+    }
+
+    public function setWin(?int $win): self
+    {
+        $this->win = $win;
+
+        return $this;
+    }
+}

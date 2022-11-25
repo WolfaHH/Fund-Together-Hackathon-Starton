@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Card from "./Card";
+import {GetAllCampaignData, GetCampaignData, GetContributor} from "./GetCampaignData";
 
 export default function Explore()
 {
 
-    const cards = ["Dog", "Bird", "Cat", "Mouse", "Horse"];
+    //const cards = ["Dog", "Bird", "Cat", "Mouse", "Horse"];
+    const [cards, setCards] = useState([]);
+    useEffect(() => {
+
+        async function GetCampaigns()
+        {
+            await setCards(await GetAllCampaignData());
+            console.log(await GetAllCampaignData);
+        }
+        GetCampaigns() .catch(console.error);
+
+    }, [])
 
     return (
 
@@ -32,22 +44,17 @@ export default function Explore()
                             <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
                                 <li>
                                     <button type="button"
-                                            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mockups
+                                            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Volunteer Work
                                     </button>
                                 </li>
                                 <li>
                                     <button type="button"
-                                            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Templates
+                                            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Education
                                     </button>
                                 </li>
                                 <li>
                                     <button type="button"
-                                            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design
-                                    </button>
-                                </li>
-                                <li>
-                                    <button type="button"
-                                            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logos
+                                            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Journalism
                                     </button>
                                 </li>
                             </ul>
@@ -55,7 +62,7 @@ export default function Explore()
                         <div className="relative w-full">
                             <input type="search" id="search-dropdown"
                                    className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                                   placeholder="Search Mockups, Logos, Design Templates..." required/>
+                                   placeholder="Search campaigns (not needed now, because we show all our campaigns" required/>
                             <button type="submit"
                                     className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor"
@@ -76,9 +83,9 @@ export default function Explore()
             <div className="shapebleu"></div>
             <div className="bg-[#2563EB] w-full opacity-90 flex justify-center items-center">
 
-                <div className="w-3/4 flex flex-wrap items-center justify-center">
+                <div className="w-10/12 flex flex-wrap items-center justify-center">
                     {cards.map(card => (
-                        <Card />
+                        <Card card={card} />
                     ))}
 
                 </div>

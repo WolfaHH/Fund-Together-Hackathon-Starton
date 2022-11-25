@@ -1,20 +1,17 @@
+import React from "react";
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import { Tab } from '@headlessui/react'
-import clsx from 'clsx'
+//import Image from 'next/image'
 
-import { Container } from '@/components/Container'
-import backgroundImage from '@/images/background-features.jpg'
-import screenshotExpenses from '@/images/screenshots/expenses.png'
-import screenshotPayroll from '@/images/screenshots/payroll.png'
-import screenshotReporting from '@/images/screenshots/reporting.png'
-import screenshotVatReturns from '@/images/screenshots/vat-returns.png'
 
-import generate from '@/images/generate.svg'
-import lock from '@/images/lock.svg'
-import relax from '@/images/relax.svg'
-import revenues from '@/images/earn.svg'
-import heroimg from "../images/hero.png"
+import { Container } from './Container'
+import backgroundImage from '../../images/background-features.jpg'
+
+
+import generate from '../../images/generate.svg'
+import lock from '../../images/lock.svg'
+import relax from '../../images/relax.svg'
+import revenues from '../../images/earn.svg'
+import heroimg from "../../images/hero.png"
 
 //{
 //  title: 'Join a Campaign',
@@ -92,13 +89,12 @@ export function PrimaryFeatures() {
       aria-label="Features for running your books"
       className="relative overflow-hidden bg-blue-600 pt-20 pb-28 sm:py-32"
     >
-      <Image
+      <img
         className="absolute top-1/2 left-1/2 max-w-none translate-x-[-44%] translate-y-[-42%]"
         src={backgroundImage}
         alt=""
         width={2245}
         height={1636}
-        unoptimized
       />
       <Container className="relative">
         {/* <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
@@ -124,7 +120,7 @@ export function PrimaryFeatures() {
                 </p>
               </div>
               <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg bg-gray-100">
-                <Image
+                <img
                   src={heroimg}
                   alt=""
                   className="object-cover object-center"
@@ -135,7 +131,7 @@ export function PrimaryFeatures() {
               {incentives.map((incentive) => (
                 <div key={incentive.name} className="sm:flex lg:block">
                   <div className="sm:flex-shrink-0">
-                    <Image className="h-16 w-16" src={incentive.imageSrc} alt="" />
+                    <img className="h-16 w-16" src={incentive.imageSrc} alt="" />
                   </div>
                   <div className="mt-4 sm:mt-0 sm:ml-6 lg:mt-6 lg:ml-0">
                     <h3 className="text-sm font-display font-medium tracking-tight text-white">{incentive.name}</h3>

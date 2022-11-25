@@ -1,12 +1,13 @@
+import React from "react";
 import { useId } from 'react'
-import Image from 'next/image'
+//import Image from 'next/image'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 
-import { Container } from '@/components/Container'
-import screenshotContacts from '@/images/screenshots/contacts.png'
-import screenshotInventory from '@/images/screenshots/inventory.png'
-import screenshotProfitLoss from '@/images/screenshots/profit-loss.png'
+import { Container } from './Container'
+import screenshotContacts from '../../images/screenshots/contacts.png'
+import screenshotInventory from '../../images/screenshots/inventory.png'
+import screenshotProfitLoss from '../../images/screenshots/profit-loss.png'
 
 
 const features = [
@@ -106,7 +107,7 @@ function Feature({ feature, isActive, className, ...props }) {
       <div
         className={clsx(
           'w-9 rounded-lg',
-          isActive ? 'bg-blue-600' : 'bg-slate-500'
+          isActive ? 'bg-blue-600' : 'bg-state-50'
         )}
       >
         <svg aria-hidden="true" className="h-9 w-9" fill="none">
@@ -136,8 +137,8 @@ function FeaturesMobile() {
         <div key={feature.name}>
           <Feature feature={feature} className="mx-auto max-w-2xl" isActive />
           <div className="relative mt-10 pb-10">
-            <div className="absolute -inset-x-4 bottom-0 top-8 bg-slate-200 sm:-inset-x-6" />
-            <div className="relative mx-auto w-[52.75rem] overflow-hidden rounded-xl bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-500/10">
+            <div className="absolute -inset-x-4 bottom-0 top-8 bg-state-50 sm:-inset-x-6" />
+            <div className="relative mx-auto w-[52.75rem] overflow-hidden rounded-xl bg-state-50 shadow-lg shadow-slate-900/5 ring-1 ring-slate-500/10">
               {/* <Image
                 className="w-full"
                 src={feature.image}
@@ -212,7 +213,7 @@ export function SecondaryFeatures() {
     <section
       id="secondary-features"
       aria-label="Features for simplifying everyday business tasks"
-      className="pt-20 pb-14 sm:pb-20 sm:pt-32 lg:pb-32"
+      className="pt-20 pb-14 sm:pb-20 sm:pt-32 lg:pb-32 bg-state-50"
     >
       <Container>
         <div className="mx-auto max-w-2xl md:text-center">

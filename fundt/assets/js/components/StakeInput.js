@@ -1,9 +1,10 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
-import React from "react";
-
-function Input() {
+import React, {Fragment, useRef, useState} from 'react'
+import {Dialog, Transition} from '@headlessui/react'
+import {CurrencyDollarIcon} from '@heroicons/react/24/outline'
+import {connectWallet} from "../blockchain/connector";
+import {approveTargetFT, contribute, createNewCampaign} from "../blockchain/smc";
+import {ethers, utils} from 'ethers';
+function Input({valuee, setValuee}) {
     return (
         <div>
             <label htmlFor="price" className="block text-sm font-medium text-gray-700 mt-3">
@@ -12,13 +13,13 @@ function Input() {
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
-                <input
-                    type="text"
-                    name="price"
-                    id="price"
-                    className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="0.00"
-                    aria-describedby="price-currency"
+                <input value={valuee} onChange={(e) => setValuee(e.target.value)}
+                       type="text"
+                       name="price"
+                       id="price"
+                       className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                       placeholder="0.00"
+                       aria-describedby="price-currency"
                 />
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
           <span className="text-gray-500 sm:text-sm" id="price-currency">
@@ -31,10 +32,48 @@ function Input() {
 }
 
 
-export default function StakeInput({open, setOpen}) {
+export default function StakeInput({open, setOpen, annonceAddress, setAnnonceAddress, userAddress, setUserAddress, loading, setLoading}) {
     //const [open, setOpen] = useState(true)
 
     const cancelButtonRef = useRef(null)
+    const [valuee, setValuee] = useState(0);
+
+    async function SetDonation() {
+
+
+        return fetch("http://localhost/api/set-donation", {
+            method: "POST",
+            body: JSON.stringify({
+                userAddress: userAddress,
+                annonceAddress: annonceAddress,
+                value:valuee,
+
+            }),
+        }).then(async (res) => {
+            return res.status === 200;
+        });
+    }
+
+    const sendTransaction = async() => {
+        const approve = await approveTargetFT(annonceAddress, utils.parseUnits(valuee.toString(), 18)).catch(console.error);
+        return await contribute(annonceAddress, utils.parseUnits(valuee.toString(), 18));
+    }
+
+    const submit = async (e) =>
+    {
+        setLoading(true);
+        let res = await sendTransaction();
+        await console.log(await res);
+        if (await res === undefined)
+        {
+        }else
+        {
+            await SetDonation();
+        }
+
+        await window.location.reload();
+        console.log('transaction effecuté !')
+    }
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -76,14 +115,14 @@ export default function StakeInput({open, setOpen}) {
                                                 You're about to exchange USDT for IBUSDT. This will generate profit that will go directly on campaign's owner according to the amount of time you keep staking. Please remember you can get back your staking anytime. We do not own anything
                                             </p>
                                         </div>
-                                        <Input />
+                                        <Input valuee={valuee} setValuee={setValuee} />
                                     </div>
                                 </div>
                                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
-                                        onClick={() => setOpen(false)}
+                                        onClick={async () => {setOpen(false); await submit();}}
                                     >
                                         Approve
                                     </button>

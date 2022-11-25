@@ -4,19 +4,20 @@ import {Route, Link} from 'react-router-dom';
 import {useState} from "react";
 import {connectWallet} from "../blockchain/connector";
 
-const Navbar = () => {
+const Navbar = ({address, setAddress}) => {
     const [ isMenuOpen, setIsMenuOpen] = useState(false);
-    const [buttonText, setButtonText] = useState("Connect");
     let connected = false;
     const [message, setMessage] = useState("yo");
-    const [address, setAddress] = useState("");
+
     const [active, setActive] = useState(true);
     useEffect(() => {
         if (window.ethereum) {
             window.ethereum.on("chainChanged", () => {
+                localStorage.setItem('address', null);
                 window.location.reload();
             });
             window.ethereum.on("accountsChanged", () => {
+                localStorage.setItem('address', null);
                 window.location.reload();
             });
         }
@@ -36,9 +37,9 @@ const Navbar = () => {
         try {
             const connect = await connectWallet();
             //await console.log(connect.address);
-            if ( await connect.connectedStatus == true)
+            if ( await connect.connectedStatus === true)
             {
-                let res = await fetch("http://crowdfunding_web3.test/api/store-user", {
+                let res = await fetch("http://localhost/api/store-user", {
                     method: "POST",
                     body: JSON.stringify({
                         address: connect.address[0],
@@ -56,7 +57,6 @@ const Navbar = () => {
                     }
                     connected = true;
                     setAddress(connect.address[0]);
-                    setButtonText(connect.address[0].slice(0, 7));
                 } );
             }
         } catch (ex) {
@@ -127,7 +127,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <a
-                            href="/dashboard"
+                            href="/whitepaper"
                             aria-label="dashboard"
                             title="dashboard"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -144,7 +144,7 @@ const Navbar = () => {
                                  aria-label="connect"
                                  title="connect"
                                  onClick={modalConnectf}>
-                            <span className="font-bold"> {buttonText}</span>
+                            <span className="font-bold"> {address === '' ? 'Connect' : address.slice(0, 7)}</span>
                         </button>
                     </li>
                 </ul>
@@ -198,7 +198,7 @@ const Navbar = () => {
                                             </svg>
                                             <span
                                                 className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        Crowd Chain
+                        Fund Together
                       </span>
                                         </a>
                                     </div>
@@ -218,7 +218,7 @@ const Navbar = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <nav>
+                                <nav className="-z-50">
                                     <ul className="space-y-4">
                                         <li>
                                             <a
@@ -227,47 +227,47 @@ const Navbar = () => {
                                                 title="Our product"
                                                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
-                                                Product
+                                                Home
                                             </a>
                                         </li>
                                         <li>
                                             <a
-                                                href="/"
+                                                href="/explore"
                                                 aria-label="Our product"
                                                 title="Our product"
                                                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
-                                                Features
+                                                Explore
                                             </a>
                                         </li>
                                         <li>
                                             <a
-                                                href="/"
+                                                href="/dashboard"
                                                 aria-label="Product pricing"
                                                 title="Product pricing"
                                                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
-                                                Pricing
+                                                Dashboard
                                             </a>
                                         </li>
                                         <li>
                                             <a
-                                                href="/"
+                                                href="/whitepaper"
                                                 aria-label="About us"
                                                 title="About us"
                                                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
-                                                About us
+                                                Whitepaper
                                             </a>
                                         </li>
                                         <li>
                                             <a
-                                                href="/"
-                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                                href="/" onClick={modalConnectf}
+                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-blue-800 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                                                 aria-label="Sign up"
                                                 title="Sign up"
                                             >
-                                                Sign up
+                                                Connect
                                             </a>
                                         </li>
                                     </ul>
