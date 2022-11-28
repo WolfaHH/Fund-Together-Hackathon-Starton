@@ -2,6 +2,10 @@ import React, {useEffect, useState} from "react";
 import Card from "./Card";
 import {GetAllCampaignData, GetCampaignData, GetContributor} from "./GetCampaignData";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+AOS.init();
+
 export default function Explore()
 {
 

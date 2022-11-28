@@ -4,7 +4,7 @@ import {connectWallet} from "../blockchain/connector";
 export async function GetCampaignData(id) {
 
 
-    return fetch("http://localhost/api/get-campaign", {
+    return fetch("https://2ed9-2001-1715-4e22-3b30-5d9d-8743-1eed-5a00.eu.ngrok.io/api/get-campaign", {
         method: "POST",
         body: JSON.stringify({
             id: id,
@@ -23,7 +23,7 @@ export async function GetCampaignData(id) {
 export async function GetContributor(id, address) {
 
 
-    return fetch("http://localhost/api/get-contributor", {
+    return fetch("https://2ed9-2001-1715-4e22-3b30-5d9d-8743-1eed-5a00.eu.ngrok.io/api/get-contributor", {
         method: "POST",
         body: JSON.stringify({
             id: id,
@@ -43,7 +43,7 @@ export async function GetContributor(id, address) {
 export async function GetAllCampaignData() {
 
 
-    return fetch("http://localhost/api/get-campaign-all", {
+    return fetch("https://2ed9-2001-1715-4e22-3b30-5d9d-8743-1eed-5a00.eu.ngrok.io/api/get-campaign-all", {
         method: "POST",
         body: JSON.stringify({
         }),
@@ -62,7 +62,7 @@ export async function GetAllCampaignData() {
 export async function GetCampaignUser(address) {
 
 
-    return fetch("http://localhost/api/get-campaign-userr", {
+    return fetch("https://2ed9-2001-1715-4e22-3b30-5d9d-8743-1eed-5a00.eu.ngrok.io/api/get-campaign-userr", {
         method: "POST",
         body: JSON.stringify({
             id: address,
@@ -81,7 +81,7 @@ export async function GetCampaignUser(address) {
 export async function GetCampaignOwner(address) {
 
 
-    return fetch("http://localhost/api/get-campaign-ownerr", {
+    return fetch("https://2ed9-2001-1715-4e22-3b30-5d9d-8743-1eed-5a00.eu.ngrok.io/api/get-campaign-ownerr", {
         method: "POST",
         body: JSON.stringify({
             id: address,

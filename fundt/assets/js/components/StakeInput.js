@@ -41,7 +41,7 @@ export default function StakeInput({open, setOpen, annonceAddress, setAnnonceAdd
     async function SetDonation() {
 
 
-        return fetch("http://localhost/api/set-donation", {
+        return fetch("https://2ed9-2001-1715-4e22-3b30-5d9d-8743-1eed-5a00.eu.ngrok.io/api/set-donation", {
             method: "POST",
             body: JSON.stringify({
                 userAddress: userAddress,
@@ -62,6 +62,7 @@ export default function StakeInput({open, setOpen, annonceAddress, setAnnonceAdd
     const submit = async (e) =>
     {
         setLoading(true);
+
         let res = await sendTransaction();
         await console.log(await res);
         if (await res === undefined)
@@ -70,7 +71,7 @@ export default function StakeInput({open, setOpen, annonceAddress, setAnnonceAdd
         {
             await SetDonation();
         }
-
+        //await SetDonation();
         await window.location.reload();
         console.log('transaction effecuté !')
     }

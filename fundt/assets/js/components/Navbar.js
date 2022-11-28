@@ -3,6 +3,8 @@ import React, {Component, useEffect} from 'react';
 import {Route, Link} from 'react-router-dom';
 import {useState} from "react";
 import {connectWallet} from "../blockchain/connector";
+import {ConnectButton} from "@rainbow-me/rainbowkit";
+import {useAccount} from "wagmi";
 
 const Navbar = ({address, setAddress}) => {
     const [ isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,40 +35,13 @@ const Navbar = ({address, setAddress}) => {
         setActive(true);
     }
 
-    async function connect() {
-        try {
-            const connect = await connectWallet();
-            //await console.log(connect.address);
-            if ( await connect.connectedStatus === true)
-            {
-                let res = await fetch("http://localhost/api/store-user", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        address: connect.address[0],
-                    }),
-                }).then( (res) => {
-                    let resJson = res.json();
-                    if (res.status === 200) {
-                        setMessage("User well connected");
-                        if (resJson['valide'] == true)
-                        {
-                            //console.log("and well registered")
-                        }
-                    } else {
-                        setMessage("nop");
-                    }
-                    connected = true;
-                    setAddress(connect.address[0]);
-                } );
-            }
-        } catch (ex) {
-            //console.log(ex)
-        }
-    }
+
 
     return (
 
         <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-24 lg:px-8 bg-[#eff2f5]">
+
+
             <div className="relative flex items-center justify-between">
                 <a
                     href="/"
@@ -137,15 +112,18 @@ const Navbar = ({address, setAddress}) => {
                     </li>
 
                 </ul>
-                <ul className="bg-blue-600  rounded-md flex items-center hidden space-x-8 lg:flex">
+                <ul className="rounded-md flex items-center hidden space-x-8 lg:flex">
                     <li>
+                        <ConnectButton />
+                        {/*
                         <button  class="connectwallet"
-                                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded-xl shadow-md bg-blue-600 hover:bg-blue-700 focus:shadow-outline focus:outline-none"
-                                 aria-label="connect"
-                                 title="connect"
-                                 onClick={modalConnectf}>
+                            className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded-xl shadow-md bg-blue-600 hover:bg-blue-700 focus:shadow-outline focus:outline-none"
+                            aria-label="connect"
+                            title="connect"
+                            onClick={modalConnectf}>
                             <span className="font-bold"> {address === '' ? 'Connect' : address.slice(0, 7)}</span>
                         </button>
+*/}
                     </li>
                 </ul>
                 <div className="lg:hidden">

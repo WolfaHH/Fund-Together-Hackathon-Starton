@@ -12,6 +12,10 @@ import {utils} from "ethers";
 import {GetAllCampaignData, GetCampaignOwner, GetCampaignUser} from "./GetCampaignData";
 
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+AOS.init();
+
 export default function Dashboard({address, setAddress})
 {
 
@@ -43,7 +47,7 @@ export default function Dashboard({address, setAddress})
     async function setRoll(win) {
 
 
-        return fetch("http://localhost/api/set-roll", {
+        return fetch("https://2ed9-2001-1715-4e22-3b30-5d9d-8743-1eed-5a00.eu.ngrok.io/api/set-roll", {
             method: "POST",
             body: JSON.stringify({
                 userAddress: address,
@@ -139,7 +143,7 @@ export default function Dashboard({address, setAddress})
 
                 <div className="flex items-center justify-center w-8/12">
 
-                    <div className="bg-white w-8/12 center rounded-2xl shadow-2xl flex flex-row mt-16 items-center  flex-wrap justify-center m-3">
+                    <div className="bg-white w-8/12 center rounded-2xl shadow-2xl flex flex-row mt-16 items-center  flex-wrap justify-center m-3"data-aos="zoom-in-right" >
                         <div className="flex flex-col justify-center items-center relative">
                       <span className="inline-block h-36 w-36 overflow-hidden rounded-full bg-gray-100 m-10 mb-2">
 
@@ -160,12 +164,12 @@ export default function Dashboard({address, setAddress})
                             <h1 className="text-sm font-extrabold text-gray-600 cursor-pointer mt-2">{name}</h1>
                             <h1 className="text-sm font-bold text-gray-500 cursor-pointer mt-2 mb-10 hover:text-blue-800 cursor-pointer">{address}</h1>
                         </div> </div>
-                    <div className="bg-white w-10/12 center rounded-2xl shadow-2xl flex flex-row mt-16 items-start  flex-wrap justify-center m-3">
+                    <div className="bg-white w-10/12 center rounded-2xl shadow-2xl flex flex-row mt-16 items-start  flex-wrap justify-center m-3" data-aos="zoom-in-left">
                         <div className="px-4 py-5 sm:p-6 ml-3 flex flex-col items-center mr-0 mt-3 mb-5">
                             <dt className="text-center text-2xl font-semibold leading-6 text-blue-500 underline mb-2">Your total staking</dt>
                             <dd className="pl-2 mt-8 flex items-baseline justify-between md:block lg:flex">
                                 <div className="flex items-baseline text-2xl font-bold text-blue-600">
-                                    1'357 USDT
+                                    NaN
                                     <span className="ml-2 text-sm font-medium text-gray-500">including <strong>$0</strong> of profit for all campaigns</span>
                                 </div>
 
@@ -198,7 +202,7 @@ export default function Dashboard({address, setAddress})
                     </div >
                 </div>
                 <div className="flex justify-center items-start  w-8/12">
-                    <div className="bg-white w-6/12 center rounded-2xl shadow-2xl flex flex-col mt-2 items-center flex-wrap justify-center mr-5 ">
+                    <div className="bg-white w-6/12 center rounded-2xl shadow-2xl flex flex-col mt-2 items-center flex-wrap justify-center mr-5 " data-aos="zoom-in-right">
                         <h3 className="text-center text-2xl font-semibold leading-6 text-blue-500 underline pt-16 mb-10">Lottery </h3>
                         <img  src="https://cdn.discordapp.com/attachments/1033766278294421504/1044996668556333086/11124.jpg" width="44%" alt=""/>
                         <span className="ml-2 text-sm font-medium text-gray-500 w-8/12 text-center mt-5">Roll a number between 1-100 based on a blockchain protocol. If you roll 42 (1% of chances), we'll stake $100 your most staked campaign ! You have 1 roll a day (20hours countdown)</span>
@@ -214,7 +218,7 @@ export default function Dashboard({address, setAddress})
                         </a>
 
                     </div>
-                    <div className="bg-white w-5/12 center rounded-2xl shadow-2xl flex flex-col  items-center  justify-center ml-2 ">
+                    <div className="bg-white w-5/12 center rounded-2xl shadow-2xl flex flex-col  items-center  justify-center ml-2 " data-aos="zoom-in-left">
                         <CalculateEarnings />
 
                     </div>

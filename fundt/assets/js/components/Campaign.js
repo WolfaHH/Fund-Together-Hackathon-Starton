@@ -15,6 +15,12 @@ import CreateCamp from "./CreateCamp";
 import EditCampaign from "./EditCampaign";
 import {mintFakeToken} from "../blockchain/smc";
 
+
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+AOS.init();
+
+
 const Campaign = ({address, setAddress}) => {
 
     const [title, setTitle] = useState("...");
@@ -104,7 +110,7 @@ const Campaign = ({address, setAddress}) => {
                 : null}
 
 
-            <div className={isActive || loading ? 'opapa main bg-[#eff2f5] flex flex-col items-center' : 'main bg-[#eff2f5] flex flex-col items-center'} onClick={changeModalf}>
+            <div data-aos="fade-down" className={isActive || loading ? 'opapa main bg-[#eff2f5] flex flex-col items-center' : 'main bg-[#eff2f5] flex flex-col items-center'} onClick={changeModalf}>
                 {/* Redirection sur la page 404 si jamais la campagne n'existe pas */}
                 { qcq && success ? <Navigate to="/404" replace={true} /> : null}
 
@@ -120,6 +126,7 @@ const Campaign = ({address, setAddress}) => {
                 <UnStakeInput open={openUnStake} setOpen = {setOpenUnStake} annonceAddress={annonceAddress} userAddress={address} loading={loading} setLoading={setLoading} />
 
                 <style>{CSS}</style>
+
 
                 <div className="mt-20 flex flex-col items-center justify-center">
                     <h1 className="mb-8 text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-6xl"><span
@@ -137,19 +144,19 @@ const Campaign = ({address, setAddress}) => {
                                     className="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
                                     <img src={img1 ? img1 : "https://flowbite.com/docs/images/carousel/carousel-1.svg"}
                                          className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                         alt="..."/>
+                                         alt="this is an image"/>
                                 </div>
 
                                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
                                     <img src={img2 ? img2 : "https://flowbite.com/docs/images/carousel/carousel-2.svg"}
                                          className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                         alt="..."/>
+                                         alt="this is an image"/>
                                 </div>
 
                                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
                                     <img src={img3 ? img3 : "https://flowbite.com/docs/images/carousel/carousel-3.svg"}
                                          className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-                                         alt="..."/>
+                                         alt="this is an image"/>
                                 </div>
                             </div>
 

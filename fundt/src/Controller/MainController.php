@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use function PHPUnit\Framework\isEmpty;
 
 class MainController extends AbstractController
 {
@@ -340,22 +341,32 @@ class MainController extends AbstractController
         $contributors =  $doctrine->getRepository(Contributor::class)->findBy(['user' => $user]);
         foreach ($contributors as $contributor)
         {
-            if ($doctrine->getRepository(Contributor::class)->findOneBy(['annonce' => $campaign]) == $contributor )
+
+            if ($contributor->getAnnonce() == $campaign )
             {
                 $cb = $contributor;
             }
         }
+
+
+
+
+
+        $entityManager = $doctrine->getManager();
         if (!isset($cb))
         {
+
             $cb = new Contributor();
             $cb->setCreatedAt(new \DateTimeImmutable());
             $cb->setAnnonce($campaign);
             $cb->setUser($user);
-
-
+            $entityManager->persist($cb);
+            $entityManager->flush();
         }
+
+
+
         $cb->setTotalAmount($cb->getTotalAmount() + $r['value']);
-        $entityManager = $doctrine->getManager();
         $entityManager->persist($cb);
         $entityManager->flush();
 
@@ -523,13 +534,26 @@ class MainController extends AbstractController
         $contributors =  $doctrine->getRepository(Contributor::class)->findBy(['user' => $user]);
         foreach ($contributors as $contributor)
         {
-            if ($doctrine->getRepository(Contributor::class)->findOneBy(['annonce' => $campaign]) == $contributor )
+            if ($contributor->getAnnonce() == $campaign )
             {
                 $cb = $contributor;
             }
         }
 
+        if (!isset($cb))
+        {
+            $cb = new Contributor();
+            $cb->setCreatedAt(new \DateTimeImmutable());
+            $cb->setAnnonce($campaign);
+            $cb->setUser($user);
+            $entityManager->persist($cb);
+            $entityManager->flush();
+        }
+
+
         $cb->setTotalAmount($cb->getTotalAmount() - $r['value']);
+
+        $entityManager->persist($cb);
         $entityManager->flush();
         $response = new Response();
 
